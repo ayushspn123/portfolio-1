@@ -1,3 +1,83 @@
+/* Bit explosion animation */
+.bit-explosion {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 100;
+  will-change: transform, opacity;
+}
+@keyframes bit-explosion-wave {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.7) translate(0, 0);
+    filter: blur(0px);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15) translate(calc(0.5 * var(--bit-distance) * cos(var(--bit-angle))), calc(0.5 * var(--bit-distance) * sin(var(--bit-angle))));
+    filter: blur(0px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1) translate(calc(var(--bit-distance) * cos(var(--bit-angle))), calc(var(--bit-distance) * sin(var(--bit-angle))));
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) translate(calc(1.2 * var(--bit-distance) * cos(var(--bit-angle))), calc(1.2 * var(--bit-distance) * sin(var(--bit-angle))));
+    filter: blur(2px);
+  }
+}
+/* Animated bits flowing down for hero section */
+.bit-float {
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.8;
+  will-change: transform, opacity;
+}
+.bit-float-visible {
+  color: #0f172a;
+  text-shadow: 0 1px 8px #fff, 0 0px 1px #0f172a;
+}
+@media (prefers-color-scheme: dark) {
+  .bit-float-visible {
+    color: #00d9ff;
+    text-shadow: 0 1px 8px #0ea5e9, 0 0px 1px #000;
+  }
+}
+@keyframes bit-down-1 {
+  0% { transform: translateY(0) translateX(0) scale(1) rotate(-8deg); opacity: 0.7; }
+  70% { opacity: 1; }
+  100% { transform: translateY(420px) translateX(20px) scale(1.1) rotate(8deg); opacity: 0; }
+}
+.animate-bit-down-1 { animation: bit-down-1 7s linear infinite; }
+
+@keyframes bit-down-2 {
+  0% { transform: translateY(0) translateX(0) scale(1) rotate(6deg); opacity: 0.6; }
+  70% { opacity: 1; }
+  100% { transform: translateY(480px) translateX(-30px) scale(1.08) rotate(-6deg); opacity: 0; }
+}
+.animate-bit-down-2 { animation: bit-down-2 8.5s linear infinite; }
+
+@keyframes bit-down-3 {
+  0% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); opacity: 0.5; }
+  70% { opacity: 1; }
+  100% { transform: translateY(400px) translateX(10px) scale(1.12) rotate(12deg); opacity: 0; }
+}
+.animate-bit-down-3 { animation: bit-down-3 6.5s linear infinite; }
+
+@keyframes bit-down-4 {
+  0% { transform: translateY(0) translateX(0) scale(1) rotate(-10deg); opacity: 0.6; }
+  70% { opacity: 1; }
+  100% { transform: translateY(450px) translateX(-15px) scale(1.05) rotate(10deg); opacity: 0; }
+}
+.animate-bit-down-4 { animation: bit-down-4 7.8s linear infinite; }
+
+@keyframes bit-down-5 {
+  0% { transform: translateY(0) translateX(0) scale(1) rotate(5deg); opacity: 0.5; }
+  70% { opacity: 1; }
+  100% { transform: translateY(390px) translateX(25px) scale(1.15) rotate(-5deg); opacity: 0; }
+}
+.animate-bit-down-5 { animation: bit-down-5 9s linear infinite; }
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -122,6 +202,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Smooth scroll for in-page anchor links */
+html {
+  scroll-behavior: smooth;
 }
 
 /* Enhanced animations for portfolio */

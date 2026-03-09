@@ -1,83 +1,3 @@
-/* Bit explosion animation */
-.bit-explosion {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 100;
-  will-change: transform, opacity;
-}
-@keyframes bit-explosion-wave {
-  0% {
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(0.7) translate(0, 0);
-    filter: blur(0px);
-  }
-  30% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15) translate(calc(0.5 * var(--bit-distance) * cos(var(--bit-angle))), calc(0.5 * var(--bit-distance) * sin(var(--bit-angle))));
-    filter: blur(0px);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1) translate(calc(var(--bit-distance) * cos(var(--bit-angle))), calc(var(--bit-distance) * sin(var(--bit-angle))));
-    filter: blur(0.5px);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8) translate(calc(1.2 * var(--bit-distance) * cos(var(--bit-angle))), calc(1.2 * var(--bit-distance) * sin(var(--bit-angle))));
-    filter: blur(2px);
-  }
-}
-/* Animated bits flowing down for hero section */
-.bit-float {
-  user-select: none;
-  pointer-events: none;
-  opacity: 0.8;
-  will-change: transform, opacity;
-}
-.bit-float-visible {
-  color: #0f172a;
-  text-shadow: 0 1px 8px #fff, 0 0px 1px #0f172a;
-}
-@media (prefers-color-scheme: dark) {
-  .bit-float-visible {
-    color: #00d9ff;
-    text-shadow: 0 1px 8px #0ea5e9, 0 0px 1px #000;
-  }
-}
-@keyframes bit-down-1 {
-  0% { transform: translateY(0) translateX(0) scale(1) rotate(-8deg); opacity: 0.7; }
-  70% { opacity: 1; }
-  100% { transform: translateY(420px) translateX(20px) scale(1.1) rotate(8deg); opacity: 0; }
-}
-.animate-bit-down-1 { animation: bit-down-1 7s linear infinite; }
-
-@keyframes bit-down-2 {
-  0% { transform: translateY(0) translateX(0) scale(1) rotate(6deg); opacity: 0.6; }
-  70% { opacity: 1; }
-  100% { transform: translateY(480px) translateX(-30px) scale(1.08) rotate(-6deg); opacity: 0; }
-}
-.animate-bit-down-2 { animation: bit-down-2 8.5s linear infinite; }
-
-@keyframes bit-down-3 {
-  0% { transform: translateY(0) translateX(0) scale(1) rotate(0deg); opacity: 0.5; }
-  70% { opacity: 1; }
-  100% { transform: translateY(400px) translateX(10px) scale(1.12) rotate(12deg); opacity: 0; }
-}
-.animate-bit-down-3 { animation: bit-down-3 6.5s linear infinite; }
-
-@keyframes bit-down-4 {
-  0% { transform: translateY(0) translateX(0) scale(1) rotate(-10deg); opacity: 0.6; }
-  70% { opacity: 1; }
-  100% { transform: translateY(450px) translateX(-15px) scale(1.05) rotate(10deg); opacity: 0; }
-}
-.animate-bit-down-4 { animation: bit-down-4 7.8s linear infinite; }
-
-@keyframes bit-down-5 {
-  0% { transform: translateY(0) translateX(0) scale(1) rotate(5deg); opacity: 0.5; }
-  70% { opacity: 1; }
-  100% { transform: translateY(390px) translateX(25px) scale(1.15) rotate(-5deg); opacity: 0; }
-}
-.animate-bit-down-5 { animation: bit-down-5 9s linear infinite; }
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -117,6 +37,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --surface-gradient: linear-gradient(135deg, rgba(26, 115, 232, 0.14), rgba(0, 217, 255, 0.1) 35%, rgba(255, 109, 0, 0.08));
 }
 
 .dark {
@@ -152,11 +73,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --surface-gradient: linear-gradient(135deg, rgba(79, 195, 247, 0.17), rgba(0, 229, 255, 0.11) 35%, rgba(255, 183, 77, 0.1));
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -199,14 +122,247 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 42%),
+      radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--primary) 18%, transparent), transparent 38%),
+      radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--secondary) 14%, transparent), transparent 45%),
+      linear-gradient(180deg, color-mix(in srgb, var(--background) 90%, transparent), var(--background));
+    min-height: 100svh;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), var(--font-body), sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
-/* Smooth scroll for in-page anchor links */
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  .section-shell {
+    @apply relative overflow-hidden py-16 sm:py-20 md:py-24 px-4;
+  }
+
+  .section-container {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+  }
+
+  .section-subtitle {
+    @apply text-center text-foreground/70 mt-3 mb-10 md:mb-14 max-w-2xl mx-auto text-sm sm:text-base md:text-lg;
+  }
+
+  .glass-card {
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  .modern-card {
+    @apply relative overflow-hidden rounded-2xl border border-border/70;
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--card) 92%, transparent),
+      color-mix(in srgb, var(--card) 70%, var(--background) 30%)
+    );
+    box-shadow: 0 14px 35px color-mix(in srgb, var(--primary) 12%, transparent);
+  }
+
+  .signature-shell {
+    @apply relative rounded-2xl border border-border/70 bg-card/75 backdrop-blur-xl;
+    box-shadow: 0 10px 26px color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  .signature-shell::before,
+  .signature-shell::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+    pointer-events: none;
+  }
+
+  .signature-shell::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-top-left-radius: 12px;
+  }
+
+  .signature-shell::after {
+    right: -1px;
+    bottom: -1px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    border-bottom-right-radius: 12px;
+  }
+
+  .mesh-backdrop {
+    background-image: linear-gradient(
+        color-mix(in srgb, var(--primary) 12%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .modern-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, color-mix(in srgb, var(--primary) 10%, transparent), transparent 40%, color-mix(in srgb, var(--accent) 10%, transparent));
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  .modern-card:hover::before {
+    opacity: 1;
+  }
+
+  .text-gradient-soft {
+    background-image: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(color-mix(in srgb, var(--primary) 24%, transparent) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Animated bits flowing down for hero section */
+.bit-float {
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.8;
+  will-change: transform, opacity;
+}
+
+.bit-float-visible {
+  color: #0f172a;
+  text-shadow: 0 1px 8px #fff, 0 0 1px #0f172a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bit-float-visible {
+    color: #00d9ff;
+    text-shadow: 0 1px 8px #0ea5e9, 0 0 1px #000;
+  }
+}
+
+@keyframes bit-down-1 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(-8deg);
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(420px) translateX(20px) scale(1.1) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+.animate-bit-down-1 {
+  animation: bit-down-1 7s linear infinite;
+}
+
+@keyframes bit-down-2 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(6deg);
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(480px) translateX(-30px) scale(1.08) rotate(-6deg);
+    opacity: 0;
+  }
+}
+
+.animate-bit-down-2 {
+  animation: bit-down-2 8.5s linear infinite;
+}
+
+@keyframes bit-down-3 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px) translateX(10px) scale(1.12) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+.animate-bit-down-3 {
+  animation: bit-down-3 6.5s linear infinite;
+}
+
+@keyframes bit-down-4 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(-10deg);
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(450px) translateX(-15px) scale(1.05) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+.animate-bit-down-4 {
+  animation: bit-down-4 7.8s linear infinite;
+}
+
+@keyframes bit-down-5 {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(5deg);
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(390px) translateX(25px) scale(1.15) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+.animate-bit-down-5 {
+  animation: bit-down-5 9s linear infinite;
 }
 
 /* Enhanced animations for portfolio */

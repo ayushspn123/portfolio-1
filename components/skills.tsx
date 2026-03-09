@@ -30,29 +30,37 @@ export function Skills() {
     },
     {
       category: "Other Skills",
-      skills: ["Data Structures & Algorithms", "System Design", "Machine Learning Basics", "OOP", "RESTful APIs"],
+      skills: ["Data Structures & Algorithms", "System Design", "Machine Learning Basics", "RESTful APIs"],
       icon: Brain,
       gradient: "from-indigo-500 to-purple-400",
+    },
+    {
+      category: "AI Research (Current Focus)",
+      skills: ["Python", "NumPy", "Pandas", "Scikit-learn", "Model Evaluation", "Literature Review"],
+      icon: Brain,
+      gradient: "from-fuchsia-500 to-violet-400",
     },
   ]
 
   return (
-    <section id="skills" className="py-20 px-4 bg-gradient-to-b from-background to-card/20">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+    <section id="skills" className="section-shell bg-gradient-to-b from-background to-card/20">
+      <div className="section-container">
+        <h2 className="section-title">
           Skills & Expertise
         </h2>
-        <p className="text-center text-foreground/60 mb-16 max-w-2xl mx-auto">
+        <p className="section-subtitle">
           Proficient in modern web technologies and proven expertise across multiple company projects
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
           {skillCategories.map((cat, idx) => {
             const IconComponent = cat.icon
             return (
               <div
                 key={idx}
-                className="group bg-gradient-to-br from-card to-card/50 border border-border/50 hover:border-accent/60 rounded-xl p-8 transition-all duration-300 animate-fade-up hover:shadow-lg hover:shadow-accent/10 hover:-translate-y-1"
+                className={`group modern-card p-6 sm:p-8 transition-all duration-300 animate-fade-up hover:-translate-y-1 ${
+                  idx === 0 ? "lg:col-span-2" : ""
+                } ${idx === 3 ? "md:col-span-2 lg:col-span-1" : ""}`}
                 style={{ animationDelay: `${idx * 80}ms` }}
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -65,11 +73,14 @@ export function Skills() {
                     {cat.category}
                   </h3>
                 </div>
+                <p className="text-sm text-foreground/65 mb-4">
+                  {cat.skills.length} tools and technologies used in real-world delivery.
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {cat.skills.map((skill, sidx) => (
                     <span
                       key={sidx}
-                      className="px-3 py-1.5 bg-gradient-to-r from-primary/15 to-accent/15 text-foreground rounded-lg border border-primary/30 hover:border-accent/60 hover:bg-accent/20 transition-all duration-300 text-xs font-semibold hover:shadow-md hover:shadow-accent/20 cursor-default hover:-translate-y-0.5"
+                      className="px-3 py-1.5 bg-gradient-to-r from-primary/15 to-accent/15 text-foreground rounded-full border border-primary/30 hover:border-accent/60 hover:bg-accent/20 transition-all duration-300 text-xs font-semibold cursor-default hover:-translate-y-0.5"
                     >
                       {skill}
                     </span>

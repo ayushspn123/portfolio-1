@@ -11,11 +11,11 @@ export function Experience() {
       title: "Full-Stack Developer",
       company: "Xcelore Pvt Ltd",
       period: "Nov 2023 - Present",
-      duration: "2+ Years",
+      duration: "2.5+ Years",
       description:
         "Architected and developed scalable MERN stack applications with focus on performance optimization, automation, and user experience enhancement. Built production-ready platforms serving enterprise clients.",
       overview:
-        "Proficient MERN Stack Developer with 2+ years of expertise in building and deploying scalable web applications. Successfully led end-to-end development of multiple enterprise platforms with cross-functional teams.",
+        "Proficient MERN Stack Developer with 2.5+ years of expertise in building and deploying scalable web applications. Successfully led end-to-end development of multiple enterprise platforms with cross-functional teams.",
       highlights: ["Next.js", "React.js", "Node.js", "MongoDB", "TypeScript", "Material UI", "Context API"],
       projects: [
         {
@@ -134,29 +134,31 @@ export function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-20 px-4 bg-gradient-to-b from-background to-card/20">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+    <section id="experience" className="section-shell bg-gradient-to-b from-background to-card/20">
+      <div className="section-container">
+        <h2 className="section-title">
           Experience
         </h2>
-        <p className="text-center text-foreground/60 mb-16 max-w-2xl mx-auto">
+        <p className="section-subtitle">
           Professional journey with enterprise-scale projects
         </p>
 
-        <div className="space-y-6">
+        <div className="space-y-6 relative">
+          <div className="hidden md:block absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-primary/60 via-accent/30 to-transparent" />
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="group relative bg-gradient-to-br from-card to-card/50 border border-border/50 hover:border-accent/60 rounded-xl overflow-hidden transition-all duration-300 animate-fade-up"
+              className="group modern-card transition-all duration-300 animate-fade-up"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              <div className="relative z-10 p-8">
+              <div className="relative z-10 p-5 sm:p-8">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-lg group-hover:scale-110 transition-transform duration-300">
+                    <div className="hidden md:block absolute -left-1.5 top-11 w-3 h-3 rounded-full bg-accent shadow-[0_0_0_4px_color-mix(in_srgb,var(--accent)_25%,transparent)]" />
+                    <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl group-hover:scale-110 transition-transform duration-300">
                       <exp.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -198,7 +200,7 @@ export function Experience() {
                 {/* Expandable Projects Section */}
                 <button
                   onClick={() => setExpandedIndex(expandedIndex === idx ? -1 : idx)}
-                  className="w-full flex items-center justify-between p-4 bg-primary/10 hover:bg-primary/15 rounded-lg border border-primary/30 transition-all duration-300 group/btn"
+                  className="w-full flex items-center justify-between p-4 bg-primary/10 hover:bg-primary/15 rounded-xl border border-primary/30 transition-all duration-300 group/btn"
                 >
                   <div className="flex items-center gap-2">
                     <Zap className="w-5 h-5 text-primary" />
@@ -217,7 +219,7 @@ export function Experience() {
                     {exp.projects.map((project, pidx) => (
                       <div
                         key={pidx}
-                        className="bg-background/40 border border-border/50 rounded-lg p-5 hover:border-accent/50 hover:bg-background/60 transition-all duration-300 hover:shadow-md hover:shadow-accent/10"
+                        className="glass-card border border-border/60 rounded-xl p-5 hover:border-accent/50 transition-all duration-300"
                       >
                         {/* Project Header */}
                         <div className="mb-3">
@@ -280,7 +282,7 @@ export function Experience() {
           ].map((stat, idx) => (
             <div
               key={idx}
-              className="text-center p-4 bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-lg hover:border-accent/60 transition-all duration-300"
+              className="text-center p-4 modern-card hover:border-accent/60 transition-all duration-300"
             >
               <div className="flex justify-center mb-2">
                 <stat.icon className="w-6 h-6 text-accent" />

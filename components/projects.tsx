@@ -2,8 +2,18 @@
 
 import { ExternalLink, Github, Star } from "lucide-react"
 
+type Project = {
+  title: string
+  description: string
+  tags: string[]
+  highlights: string
+  link: string
+  gradient: string
+  featured?: boolean
+}
+
 export function Projects() {
-  const projects = [
+  const projects: Project[] = [
     {
       title: "Heart Sync",
       description:
@@ -93,28 +103,49 @@ export function Projects() {
   ]
 
   const featuredProjects = projects.filter((p) => p.featured)
+  const projectStats = [
+    { label: "Featured Builds", value: `${featuredProjects.length}+` },
+    { label: "Total Projects", value: `${projects.length}+` },
+    { label: "Core Stack", value: "MERN + Next" },
+  ]
 
   return (
-    <section id="projects" className="py-20 px-4 bg-gradient-to-b from-card/20 to-background">
+    <section id="projects" className="section-shell bg-gradient-to-b from-card/20 to-background">
+      <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.14]" aria-hidden />
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="section-title">
             Featured Projects
           </h2>
-          <p className="text-center text-foreground/60 max-w-2xl mx-auto text-lg">
+          <p className="section-subtitle mb-0">
             Showcase of impactful projects built with modern technologies, scalability, and best practices
           </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+            {projectStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="glass-card border border-border/70 rounded-full px-4 py-2 text-xs sm:text-sm text-foreground/80"
+              >
+                <span className="font-semibold text-foreground">{stat.value}</span>
+                <span className="mx-1.5 text-foreground/40">|</span>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Featured Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {featuredProjects.map((project, idx) => (
+          {featuredProjects.map((project, idx) => {
+            return (
             <a
               key={idx}
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-gradient-to-br from-card to-card/50 border border-border/50 hover:border-accent/60 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-accent/15 hover:-translate-y-2 relative overflow-hidden h-full flex flex-col"
+              className={`group modern-card p-5 sm:p-6 transition-all duration-300 hover:border-accent/60 hover:-translate-y-2 h-full flex flex-col ${
+                idx === 0 ? "md:col-span-2 lg:col-span-2" : ""
+              }`}
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-accent/10 to-secondary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -133,7 +164,7 @@ export function Projects() {
                 </div>
               </div>
 
-              <p className="text-foreground/70 text-sm mb-4 leading-relaxed relative z-10 flex-grow">
+              <p className={`text-foreground/70 mb-4 leading-relaxed relative z-10 flex-grow ${idx === 0 ? "text-sm sm:text-base" : "text-sm"}`}>
                 {project.description}
               </p>
 
@@ -148,25 +179,30 @@ export function Projects() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between relative z-10">
+              <div className="flex items-center justify-between relative z-10 border-t border-border/60 pt-4">
                 <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
-                <ExternalLink className="w-5 h-5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+                  Explore
+                  <ExternalLink className="w-4.5 h-4.5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </span>
               </div>
             </a>
-          ))}
+            )
+          })}
         </div>
 
         {/* All Projects */}
         <div className="mb-8">
           <h3 className="text-2xl md:text-3xl font-bold mb-8 text-foreground">All Projects</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((project, idx) => (
+            {projects.map((project, idx) => {
+              return (
               <a
                 key={idx}
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-card/40 border border-border/30 hover:border-accent/50 rounded-lg p-5 transition-all duration-300 hover:bg-card/80 hover:shadow-md hover:shadow-accent/10"
+                className="group modern-card rounded-xl p-5 hover:border-accent/50 transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-3">
                   <h4 className="font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
@@ -189,7 +225,8 @@ export function Projects() {
                   )}
                 </div>
               </a>
-            ))}
+              )
+            })}
           </div>
         </div>
 
@@ -199,7 +236,7 @@ export function Projects() {
             href="https://github.com/ayushspn123?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
           >
             <Github className="w-5 h-5" />
             View All on GitHub

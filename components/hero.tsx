@@ -12,8 +12,8 @@ export function Hero() {
 
   // Sequential typewriter: each line starts after previous is done
   const { displayedText: text1, isComplete: done1 } = useTypewriter(line1, 30, 600)
-  const { displayedText: text2, isComplete: done2 } = useTypewriter(line2, 20, done1 ? 200 : 999999)
-  const { displayedText: text3, isComplete: done3 } = useTypewriter(line3, 18, done2 ? 200 : 999999)
+  const { displayedText: text2, isComplete: done2 } = useTypewriter(line2, 20, 220, done1)
+  const { displayedText: text3, isComplete: done3 } = useTypewriter(line3, 18, 220, done2)
 
   return (
     <section
@@ -44,13 +44,13 @@ export function Hero() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl font-semibold text-accent mb-4 leading-relaxed">
-              <span>{text1}{!done1 && <span className="animate-pulse">|</span>}</span>
+              <span className="inline-flex items-baseline">{text1}{!done1 && <span className="typewriter-caret" aria-hidden>|</span>}</span>
             </p>
             <p className="text-foreground/75 text-sm sm:text-base md:text-lg mb-4 leading-relaxed">
-              <span>{text2}{done1 && !done2 && <span className="animate-pulse">|</span>}</span>
+              <span className="inline-flex items-baseline">{text2}{done1 && !done2 && <span className="typewriter-caret" aria-hidden>|</span>}</span>
             </p>
             <p className="text-foreground/65 text-sm sm:text-base mb-8 leading-relaxed max-w-xl">
-              <span>{text3}{done2 && !done3 && <span className="animate-pulse">|</span>}</span>
+              <span className="inline-flex items-baseline">{text3}{done2 && !done3 && <span className="typewriter-caret" aria-hidden>|</span>}</span>
             </p>
             <div className="flex gap-3 sm:gap-4 flex-wrap">
               <a

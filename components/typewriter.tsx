@@ -3,42 +3,42 @@
 
 import { useState, useEffect } from "react"
 
-export function useTypewriter(text: string, speed = 50, delay = 0) {
+export function useTypewriter(text: string, speed = 50, delay = 0, startWhen = true) {
   const [displayedText, setDisplayedText] = useState("")
   const [isComplete, setIsComplete] = useState(false)
 
   useEffect(() => {
     setDisplayedText("")
     setIsComplete(false)
-    if (delay > 0) {
-      const delayTimer = setTimeout(() => {
-        let index = 0
-        const interval = setInterval(() => {
-          if (index < text.length) {
-            setDisplayedText(text.substring(0, index + 1))
-            index++
-          } else {
-            clearInterval(interval)
-            setIsComplete(true)
-          }
-        }, speed)
-        return () => clearInterval(interval)
-      }, delay)
-      return () => clearTimeout(delayTimer)
-    } else {
+
+    if (!startWhen) {
+      return
+    }
+
+    let interval: ReturnType<typeof setInterval> | undefined
+    const delayTimer = setTimeout(() => {
       let index = 0
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         if (index < text.length) {
           setDisplayedText(text.substring(0, index + 1))
           index++
-        } else {
-          clearInterval(interval)
-          setIsComplete(true)
+          return
         }
+
+        if (interval) {
+          clearInterval(interval)
+        }
+        setIsComplete(true)
       }, speed)
-      return () => clearInterval(interval)
+    }, delay)
+
+    return () => {
+      clearTimeout(delayTimer)
+      if (interval) {
+        clearInterval(interval)
+      }
     }
-  }, [text, speed, delay])
+  }, [text, speed, delay, startWhen])
 
   return { displayedText, isComplete }
 }
@@ -52,9 +52,9 @@ interface TypewriterProps {
 export function Typewriter({ text, speed = 50, delay = 0 }: TypewriterProps) {
   const { displayedText, isComplete } = useTypewriter(text, speed, delay)
   return (
-    <span>
+    <span className="inline-flex items-baseline">
       {displayedText}
-      {!isComplete && <span className="animate-pulse">|</span>}
+      {!isComplete && <span className="typewriter-caret" aria-hidden>|</span>}
     </span>
   )
 }

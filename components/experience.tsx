@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Briefcase, Calendar, ChevronDown, Zap, Target, Code2, Database, Users } from "lucide-react"
+import { Briefcase, Calendar, ChevronDown, Code2, Database, Users, Target, MapPin } from "lucide-react"
 
 export function Experience() {
-  const [expandedIndex, setExpandedIndex] = useState(0)
+  const [openIdx, setOpenIdx] = useState<number | null>(0)
 
   const experiences = [
     {
@@ -134,163 +134,154 @@ export function Experience() {
   ]
 
   return (
-    <section id="experience" className="section-shell bg-gradient-to-b from-background to-card/20">
+    <section id="experience" className="section-shell">
+      <div className="pointer-events-none absolute inset-0 mesh-backdrop opacity-[0.06]" aria-hidden />
+      <div className="pointer-events-none absolute top-0 right-1/4 h-96 w-96 rounded-full bg-primary/10 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-accent/8 blur-3xl" aria-hidden />
+
       <div className="section-container">
-        <h2 className="section-title">
-          Experience
-        </h2>
-        <p className="section-subtitle">
-          Professional journey with enterprise-scale projects
-        </p>
+        {/* Section header */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+            <Briefcase className="w-3.5 h-3.5" />
+            Work History
+          </div>
+          <h2 className="section-title">Experience</h2>
+          <p className="section-subtitle">Building production-grade products and exploring applied research</p>
+        </div>
 
-        <div className="space-y-6 relative">
-          <div className="hidden md:block absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-primary/60 via-accent/30 to-transparent" />
-          {experiences.map((exp, idx) => (
-            <div
-              key={idx}
-              className="group modern-card transition-all duration-300 animate-fade-up"
-              style={{ animationDelay: `${idx * 100}ms` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              <div className="relative z-10 p-5 sm:p-8">
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                  <div className="flex items-start gap-4">
-                    <div className="hidden md:block absolute -left-1.5 top-11 w-3 h-3 rounded-full bg-accent shadow-[0_0_0_4px_color-mix(in_srgb,var(--accent)_25%,transparent)]" />
-                    <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl group-hover:scale-110 transition-transform duration-300">
-                      <exp.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
-                        {exp.title}
-                      </h3>
-                      <p className="text-secondary font-semibold mt-1 text-lg">{exp.company}</p>
-                      <p className="text-foreground/60 text-sm mt-1">{exp.overview}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start md:items-end gap-2 text-foreground/60 text-sm mt-4 md:mt-0">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {exp.period}
-                    </div>
-                    <div className="px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-semibold border border-accent/30">
-                      {exp.duration}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Main Description */}
-                <p className="text-foreground/70 mb-6 leading-relaxed">{exp.description}</p>
-
-                {/* Skills */}
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {exp.highlights.map((skill, sidx) => (
-                      <span
-                        key={sidx}
-                        className="px-3 py-1 bg-primary/15 text-accent text-sm rounded-full border border-accent/30 hover:bg-accent/20 hover:border-accent/60 transition-all duration-300 hover:-translate-y-0.5 cursor-default"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Expandable Projects Section */}
-                <button
-                  onClick={() => setExpandedIndex(expandedIndex === idx ? -1 : idx)}
-                  className="w-full flex items-center justify-between p-4 bg-primary/10 hover:bg-primary/15 rounded-xl border border-primary/30 transition-all duration-300 group/btn"
-                >
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-primary" />
-                    <span className="font-semibold text-foreground">Key Projects ({exp.projects.length})</span>
-                  </div>
-                  <ChevronDown
-                    className={`w-5 h-5 text-primary transition-transform duration-300 ${
-                      expandedIndex === idx ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {/* Projects Grid */}
-                {expandedIndex === idx && (
-                  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-up">
-                    {exp.projects.map((project, pidx) => (
-                      <div
-                        key={pidx}
-                        className="glass-card border border-border/60 rounded-xl p-5 hover:border-accent/50 transition-all duration-300"
-                      >
-                        {/* Project Header */}
-                        <div className="mb-3">
-                          <h4 className="text-lg font-bold text-foreground flex items-center gap-2">
-                            <Target className="w-4 h-4 text-accent" />
-                            {project.name}
-                          </h4>
-                          <p className="text-sm text-foreground/60 mt-1">{project.role}</p>
-                          <p className="text-xs text-secondary mt-1">{project.duration}</p>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-sm text-foreground/70 mb-4 leading-relaxed">{project.description}</p>
-
-                        {/* Key Features */}
-                        <div className="mb-4">
-                          <p className="text-xs font-semibold text-accent mb-2">Key Features:</p>
-                          <ul className="space-y-1">
-                            {project.keyFeatures.slice(0, 3).map((feature, fidx) => (
-                              <li key={fidx} className="text-xs text-foreground/60 flex items-start gap-2">
-                                <span className="text-accent mt-1">•</span>
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                            {project.keyFeatures.length > 3 && (
-                              <li className="text-xs text-accent/80">
-                                +{project.keyFeatures.length - 3} more features
-                              </li>
-                            )}
-                          </ul>
-                        </div>
-
-                        {/* Tech Stack */}
-                        <div className="flex flex-wrap gap-1">
-                          {project.tech.map((t, tidx) => (
-                            <span
-                              key={tidx}
-                              className="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded border border-accent/20"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+        {/* Stats row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-14">
+          {[
+            { icon: Code2, label: "Projects Shipped", value: "6+" },
+            { icon: Users, label: "Team Members", value: "5+" },
+            { icon: Database, label: "Platforms Built", value: "4+" },
+            { icon: Target, label: "Performance Gain", value: "60%" },
+          ].map((s, i) => (
+            <div key={i} className="modern-card flex flex-col items-center justify-center py-5 px-3 gap-2 hover:border-accent/50 transition-all duration-300 hover:-translate-y-1">
+              <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary/20 to-accent/15 flex items-center justify-center">
+                <s.icon className="w-4.5 h-4.5 text-accent" />
               </div>
+              <p className="text-2xl font-extrabold text-foreground">{s.value}</p>
+              <p className="text-xs text-foreground/55 text-center">{s.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Summary Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { icon: Code2, label: "Projects Led", value: "6+" },
-            { icon: Users, label: "Team Mentored", value: "5+" },
-            { icon: Database, label: "Platforms Built", value: "4+" },
-            { icon: Target, label: "Performance Gain", value: "60%" },
-          ].map((stat, idx) => (
-            <div
-              key={idx}
-              className="text-center p-4 modern-card hover:border-accent/60 transition-all duration-300"
-            >
-              <div className="flex justify-center mb-2">
-                <stat.icon className="w-6 h-6 text-accent" />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="hidden md:block absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-accent/30 to-transparent" />
+
+          <div className="space-y-6">
+            {experiences.map((exp, idx) => (
+              <div
+                key={idx}
+                className="relative animate-fade-up"
+                style={{ animationDelay: `${idx * 120}ms` }}
+              >
+                {/* Timeline dot */}
+                <div className="hidden md:flex absolute left-3.5 top-7 h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent shadow-md shadow-primary/40 z-10">
+                  <div className="h-2 w-2 rounded-full bg-white/80" />
+                </div>
+
+                {/* Card */}
+                <div className="md:ml-16 modern-card group overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 hover:-translate-y-1">
+                  {/* Top accent bar */}
+                  <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-secondary" />
+
+                  <div className="p-5 sm:p-6">
+                    {/* Header row */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                      <div>
+                        <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
+                          {exp.title}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5">
+                          <span className="text-secondary font-semibold text-sm">{exp.company}</span>
+                          <span className="hidden sm:inline text-foreground/25">·</span>
+                          <span className="flex items-center gap-1 text-foreground/55 text-xs">
+                            <MapPin className="w-3 h-3" />
+                            Noida, India
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap sm:flex-col sm:items-end gap-2 shrink-0">
+                        <div className="flex items-center gap-1.5 text-foreground/60 text-xs border border-border/60 rounded-full px-3 py-1.5 bg-background/50">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {exp.period}
+                        </div>
+                        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/25">
+                          {exp.duration}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-foreground/65 leading-relaxed mb-5">{exp.description}</p>
+
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {exp.highlights.map((skill, sidx) => (
+                        <span
+                          key={sidx}
+                          className="px-2.5 py-1 text-xs rounded-lg bg-primary/10 text-primary border border-primary/20 font-medium hover:bg-primary/20 transition-colors cursor-default"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Projects toggle */}
+                    <button
+                      onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+                      className="group/btn flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors"
+                    >
+                      <span className={`flex h-6 w-6 items-center justify-center rounded-full border border-accent/40 bg-accent/10 transition-transform duration-300 ${openIdx === idx ? "rotate-45" : ""}`}>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${openIdx === idx ? "rotate-180" : ""}`} />
+                      </span>
+                      {openIdx === idx ? "Hide Projects" : `View ${exp.projects.length} Projects`}
+                    </button>
+
+                    {/* Projects list */}
+                    {openIdx === idx && (
+                      <div className="mt-5 grid sm:grid-cols-2 gap-3 animate-fade-up">
+                        {exp.projects.map((p, pidx) => (
+                          <div
+                            key={pidx}
+                            className="rounded-xl border border-border/50 bg-background/50 p-4 hover:border-accent/40 hover:bg-accent/5 transition-all duration-200"
+                          >
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <h4 className="text-sm font-bold text-foreground">{p.name}</h4>
+                              <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-secondary/30 bg-secondary/10 text-secondary">
+                                {p.duration}
+                              </span>
+                            </div>
+                            <p className="text-xs text-accent/80 font-medium mb-2">{p.role}</p>
+                            <ul className="space-y-1 mb-3">
+                              {p.keyFeatures.slice(0, 3).map((f, fi) => (
+                                <li key={fi} className="text-xs text-foreground/60 flex items-start gap-1.5">
+                                  <span className="text-accent/70 mt-0.5 shrink-0">›</span>
+                                  {f}
+                                </li>
+                              ))}
+                            </ul>
+                            <div className="flex flex-wrap gap-1">
+                              {p.tech.map((t, ti) => (
+                                <span key={ti} className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary/80 border border-primary/15">
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-              <p className="text-sm text-foreground/60">{stat.label}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

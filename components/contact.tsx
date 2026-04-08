@@ -30,9 +30,8 @@ export function Contact() {
   return (
     <section id="contact" className="section-shell bg-gradient-to-b from-card/30 to-background">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="section-title mb-0">
-          Let's Work Together
-        </h2>
+        <div className="editorial-kicker mb-4">Start a Conversation</div>
+        <h2 className="section-title mb-0">Let's Work Together</h2>
         <p className="section-subtitle leading-relaxed">
           I'm always interested in hearing about new projects and opportunities. Feel free to reach out if you'd like to
           collaborate!
@@ -63,23 +62,24 @@ export function Contact() {
                   <h3 className="font-bold text-foreground mb-1 group-hover:text-accent transition-colors">
                     {method.title}
                   </h3>
-                  <p className="text-accent text-sm">{method.description}</p>
+                  <p className="text-primary text-sm">{method.description}</p>
                 </div>
               </a>
             )
           })}
         </div>
 
-        <div className="modern-card max-w-2xl mx-auto p-5 sm:p-7 text-left sm:text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-accent font-semibold">Quick Start</p>
+        <div className="frame-panel max-w-2xl mx-auto p-5 sm:p-7 text-left sm:text-center">
+          <p className="text-sm uppercase tracking-[0.2em] text-primary font-semibold">Quick Start</p>
           <h3 className="mt-2 text-2xl sm:text-3xl font-bold text-gradient-soft">Tell me what you are building</h3>
           <p className="mt-2 text-foreground/70 text-sm sm:text-base">
             I can help with frontend architecture, full-stack implementation, and production release readiness.
           </p>
+          <div className="soft-line mt-5" />
           <div className="mt-5 flex flex-wrap sm:justify-center gap-3">
             <a
               href="mailto:ayushvermaspn@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:-translate-y-1 animate-bounce-subtle group"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-secondary to-primary text-primary-foreground rounded-xl font-semibold hover:shadow-lg hover:shadow-secondary/45 transition-all duration-300 transform hover:-translate-y-1 animate-bounce-subtle group"
             >
               Send Me an Email
               <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -88,7 +88,7 @@ export function Contact() {
               href="https://www.linkedin.com/in/ayushkumar-dev/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 border border-accent/50 text-accent rounded-xl font-semibold hover:bg-accent/10 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border border-primary/50 text-primary rounded-xl font-semibold hover:bg-primary/10 transition-all duration-300"
             >
               Message on LinkedIn
             </a>

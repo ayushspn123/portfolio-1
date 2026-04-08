@@ -1,6 +1,7 @@
 "use client"
 
 import { ExternalLink, Github, Star } from "lucide-react"
+import { ScrollReveal } from "./scroll-reveal"
 
 type Project = {
   title: string
@@ -110,13 +111,12 @@ export function Projects() {
   ]
 
   return (
-    <section id="projects" className="section-shell bg-gradient-to-b from-card/20 to-background">
-      <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.14]" aria-hidden />
+    <section id="projects" className="section-shell bg-gradient-to-b from-card/30 to-background">
+      <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.18]" aria-hidden />
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="section-title">
-            Featured Projects
-          </h2>
+        <ScrollReveal className="text-center mb-16">
+          <div className="editorial-kicker mb-4">Selected Work</div>
+          <h2 className="section-title">Featured Projects</h2>
           <p className="section-subtitle mb-0">
             Showcase of impactful projects built with modern technologies, scalability, and best practices
           </p>
@@ -124,7 +124,7 @@ export function Projects() {
             {projectStats.map((stat) => (
               <div
                 key={stat.label}
-                className="glass-card border border-border/70 rounded-full px-4 py-2 text-xs sm:text-sm text-foreground/80"
+                className="glass-card border border-border/85 rounded-full px-4 py-2 text-xs sm:text-sm text-foreground/80"
               >
                 <span className="font-semibold text-foreground">{stat.value}</span>
                 <span className="mx-1.5 text-foreground/40">|</span>
@@ -132,61 +132,59 @@ export function Projects() {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Featured Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {featuredProjects.map((project, idx) => {
             return (
-            <a
-              key={idx}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group modern-card p-5 sm:p-6 transition-all duration-300 hover:border-accent/60 hover:-translate-y-2 h-full flex flex-col ${
-                idx === 0 ? "md:col-span-2 lg:col-span-2" : ""
-              }`}
-              style={{ animationDelay: `${idx * 100}ms` }}
-            >
-              <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-accent/10 to-secondary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <ScrollReveal key={idx} delayMs={100 * idx} className={idx === 0 ? "md:col-span-2 lg:col-span-2" : ""}>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group modern-card p-5 sm:p-6 transition-colors duration-300 hover:border-accent/60 h-full flex flex-col"
+              >
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/12 to-secondary/8 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="flex items-start justify-between mb-4 relative z-10">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className={`p-2 rounded-lg bg-gradient-to-br ${project.gradient}`}>
-                      <Star className="w-4 h-4 text-white" />
+                <div className="flex items-start justify-between mb-4 relative z-10">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${project.gradient}`}>
+                        <Star className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-xs font-bold text-primary uppercase tracking-wider">Featured</span>
                     </div>
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider">Featured</span>
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                      {project.title}
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
-                    {project.title}
-                  </h3>
                 </div>
-              </div>
 
-              <p className={`text-foreground/70 mb-4 leading-relaxed relative z-10 flex-grow ${idx === 0 ? "text-sm sm:text-base" : "text-sm"}`}>
-                {project.description}
-              </p>
+                <p className={`text-foreground/70 mb-4 leading-relaxed relative z-10 flex-grow ${idx === 0 ? "text-sm sm:text-base" : "text-sm"}`}>
+                  {project.description}
+                </p>
 
-              <div className="flex flex-wrap gap-2 mb-6 relative z-10">
-                {project.tags.map((tag, tidx) => (
-                  <span
-                    key={tidx}
-                    className="px-2.5 py-1 bg-accent/15 text-accent text-xs rounded-lg border border-accent/30 font-medium hover:bg-accent/25 transition-colors"
-                  >
-                    {tag}
+                <div className="flex flex-wrap gap-2 mb-6 relative z-10">
+                  {project.tags.map((tag, tidx) => (
+                    <span
+                      key={tidx}
+                      className="px-2.5 py-1 bg-primary/13 text-primary text-xs rounded-lg border border-primary/26 font-medium hover:bg-primary/22 transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between relative z-10 border-t border-border/60 pt-4">
+                  <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                    Explore
+                    <ExternalLink className="w-4.5 h-4.5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </span>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between relative z-10 border-t border-border/60 pt-4">
-                <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
-                  Explore
-                  <ExternalLink className="w-4.5 h-4.5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </span>
-              </div>
-            </a>
+                </div>
+              </a>
+            </ScrollReveal>
             )
           })}
         </div>
@@ -197,52 +195,53 @@ export function Projects() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project, idx) => {
               return (
-              <a
-                key={idx}
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group modern-card rounded-xl p-5 hover:border-accent/50 transition-all duration-300"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
-                    {project.title}
-                  </h4>
-                  <Github className="w-4 h-4 text-accent flex-shrink-0 ml-2" />
-                </div>
-                <p className="text-foreground/60 text-xs mb-3 line-clamp-2">{project.description}</p>
-                <div className="flex flex-wrap gap-1">
-                  {project.tags.slice(0, 2).map((tag, tidx) => (
-                    <span
-                      key={tidx}
-                      className="px-2 py-0.5 bg-accent/10 text-accent text-xs rounded border border-accent/20"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {project.tags.length > 2 && (
-                    <span className="px-2 py-0.5 text-foreground/50 text-xs">+{project.tags.length - 2}</span>
-                  )}
-                </div>
-              </a>
+              <ScrollReveal key={idx} delayMs={50 * idx}>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group modern-card rounded-xl p-5 hover:border-accent/50 transition-colors duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h4 className="font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
+                      {project.title}
+                    </h4>
+                    <Github className="w-4 h-4 text-primary flex-shrink-0 ml-2" />
+                  </div>
+                  <p className="text-foreground/60 text-xs mb-3 line-clamp-2">{project.description}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.slice(0, 2).map((tag, tidx) => (
+                      <span
+                        key={tidx}
+                        className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded border border-primary/20"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 2 && (
+                      <span className="px-2 py-0.5 text-foreground/50 text-xs">+{project.tags.length - 2}</span>
+                    )}
+                  </div>
+                </a>
+              </ScrollReveal>
               )
             })}
           </div>
         </div>
 
         {/* View All on GitHub CTA */}
-        <div className="text-center mt-12">
+        <ScrollReveal className="text-center mt-12" delayMs={140}>
           <a
             href="https://github.com/ayushspn123?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
           >
             <Github className="w-5 h-5" />
             View All on GitHub
             <ExternalLink className="w-4 h-4" />
           </a>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )

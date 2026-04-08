@@ -11,29 +11,29 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-3 sm:top-4 w-full z-40 animate-slide-left px-3 sm:px-4">
-      <div className="relative max-w-6xl mx-auto signature-shell px-3 sm:px-4">
+      <div className="relative max-w-6xl mx-auto frame-panel px-3 sm:px-4">
         <div className="flex justify-between items-center h-14 sm:h-16">
           <Link href="#" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center shadow-md shadow-accent/30">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm shadow-primary/25">
               <span className="text-primary-foreground font-bold text-sm">AK</span>
             </div>
-            <span className="font-semibold text-base hidden sm:inline text-foreground">Ayush Kumar</span>
+            <span className="font-semibold text-base hidden sm:inline text-foreground tracking-tight">Ayush Kumar</span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6 items-center">
+          <div className="hidden md:flex gap-2 items-center rounded-full border border-border/80 bg-background/45 p-1.5">
             {menuItems.map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-foreground/70 hover:text-accent transition-colors duration-300 text-sm font-semibold"
+                className="rounded-full px-3 py-1.5 text-foreground/72 hover:text-primary hover:bg-primary/10 transition-colors duration-300 text-sm font-semibold"
               >
                 {item}
               </Link>
             ))}
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold shadow-md shadow-accent/25 hover:opacity-95 transition-opacity uppercase tracking-[0.08em]"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-sm shadow-primary/25 hover:bg-primary/90 transition-colors uppercase tracking-[0.08em]"
             >
               <Sparkles className="w-4 h-4" />
               Hire Me
@@ -45,7 +45,7 @@ export function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-label="Toggle navigation menu"
-            className="md:hidden p-2.5 hover:bg-card rounded-lg transition-colors border border-border/60"
+            className="md:hidden p-2.5 hover:bg-card rounded-lg transition-colors border border-border/70"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -54,12 +54,12 @@ export function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden pb-3 animate-fade-up">
-            <div className="glass-card rounded-xl border border-border/70 p-2 shadow-xl shadow-primary/10">
+            <div className="glass-card rounded-xl border border-border/80 p-2 shadow-xl shadow-foreground/10">
               {menuItems.map((item) => (
                 <Link
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="block px-4 py-3 text-foreground/85 hover:text-accent hover:bg-accent/10 rounded-xl transition-colors font-medium"
+                  className="block px-4 py-3 text-foreground/85 hover:text-primary hover:bg-primary/10 rounded-xl transition-colors font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {item}
@@ -68,7 +68,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setIsOpen(false)}
-                className="mt-1 block px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold"
+                className="mt-1 block px-4 py-3 rounded-xl bg-primary text-primary-foreground font-semibold"
               >
                 Hire Me
               </a>

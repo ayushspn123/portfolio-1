@@ -4,6 +4,7 @@ import { Sora, Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import NeuralNetworkThree from "@/components/neural-network-three"
 
 const sora = Sora({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sora.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+        <NeuralNetworkThree />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>

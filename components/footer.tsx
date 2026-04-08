@@ -14,17 +14,17 @@ export function Footer() {
             <div>
               <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
               <div className="grid grid-cols-2 gap-2 text-sm text-foreground/60">
-                <a href="#about" className="hover:text-primary transition-colors">
+                <a href="/about" className="hover:text-primary transition-colors">
                   About
                 </a>
-                <a href="#experience" className="hover:text-primary transition-colors">
+                <a href="/experience" className="hover:text-primary transition-colors">
                   Experience
                 </a>
-                <a href="#projects" className="hover:text-primary transition-colors">
+                <a href="/projects" className="hover:text-primary transition-colors">
                   Projects
                 </a>
-                <a href="#contact" className="hover:text-primary transition-colors">
-                  Contact
+                <a href="/hire-me" className="hover:text-primary transition-colors">
+                  Hire Me
                 </a>
               </div>
             </div>

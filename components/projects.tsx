@@ -190,37 +190,73 @@ export function Projects() {
         </div>
 
         {/* All Projects */}
-        <div className="mb-8">
+        <div className="mb-8 relative">
+          <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
+            <div className="absolute left-[8%] right-[8%] top-12 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+            <div className="absolute left-[18%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-accent/12 to-transparent" />
+            <div className="absolute left-[50%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-secondary/12 to-transparent" />
+            <div className="absolute left-[82%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-primary/12 to-transparent" />
+            <div className="absolute left-[18%] top-[24%] h-px w-[32%] bg-gradient-to-r from-primary/10 via-accent/20 to-transparent" />
+            <div className="absolute left-[50%] top-[45%] h-px w-[32%] bg-gradient-to-r from-secondary/10 via-primary/20 to-transparent" />
+            <div className="absolute left-[18%] top-[68%] h-px w-[64%] bg-gradient-to-r from-primary/10 via-secondary/15 to-transparent" />
+          </div>
+
           <h3 className="text-2xl md:text-3xl font-bold mb-8 text-foreground">All Projects</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, idx) => {
               return (
-              <ScrollReveal key={idx} delayMs={50 * idx}>
+              <ScrollReveal key={project.title} delayMs={50 * idx}>
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group modern-card rounded-xl p-5 hover:border-accent/50 transition-colors duration-300"
+                  className="group signature-shell relative flex h-full flex-col overflow-hidden p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/45"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <h4 className="font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
-                      {project.title}
-                    </h4>
-                    <Github className="w-4 h-4 text-primary flex-shrink-0 ml-2" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(34,211,238,0.10),transparent_34%),radial-gradient(circle_at_85%_10%,rgba(37,99,235,0.10),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <div className="relative z-10 flex items-start gap-3 mb-4">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-background/70 shadow-lg shadow-primary/10">
+                      <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-cyan-300 to-primary shadow-[0_0_14px_rgba(34,211,238,0.7)]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1 flex items-center gap-2">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/65">
+                          Node {String(idx + 1).padStart(2, "0")}
+                        </span>
+                        <span className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+                      </div>
+                      <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
+                        {project.title}
+                      </h4>
+                    </div>
+                    <Github className="w-4 h-4 text-primary flex-shrink-0 mt-1.5" />
                   </div>
-                  <p className="text-foreground/60 text-xs mb-3 line-clamp-2">{project.description}</p>
-                  <div className="flex flex-wrap gap-1">
+
+                  <p className="relative z-10 text-foreground/65 text-xs sm:text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
+                    {project.description}
+                  </p>
+
+                  <div className="relative z-10 flex flex-wrap gap-1.5">
                     {project.tags.slice(0, 2).map((tag, tidx) => (
                       <span
                         key={tidx}
-                        className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded border border-primary/20"
+                        className="rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"
                       >
                         {tag}
                       </span>
                     ))}
                     {project.tags.length > 2 && (
-                      <span className="px-2 py-0.5 text-foreground/50 text-xs">+{project.tags.length - 2}</span>
+                      <span className="px-2.5 py-1 text-xs text-foreground/50">+{project.tags.length - 2}</span>
                     )}
+                  </div>
+
+                  <div className="relative z-10 mt-5 flex items-center gap-3 border-t border-border/70 pt-4">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-secondary">
+                      <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_12px_rgba(45,212,191,0.6)]" />
+                      Connected
+                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-primary/20 via-secondary/20 to-transparent" />
+                    <span className="text-xs font-semibold text-primary/80">Open Link</span>
                   </div>
                 </a>
               </ScrollReveal>

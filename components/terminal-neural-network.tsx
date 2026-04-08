@@ -85,8 +85,8 @@ export function TerminalNeuralNetwork() {
     nodeGeometry.setAttribute("position", new THREE.BufferAttribute(nodePositions, 3))
 
     const nodeMaterial = new THREE.PointsMaterial({
-      size: 3.2,
-      color: 0x00d9ff,
+      size: 4.2,
+      color: 0xd8fbff,
       transparent: true,
       opacity: 1,
       sizeAttenuation: true,
@@ -107,8 +107,8 @@ export function TerminalNeuralNetwork() {
           linePositions.push(node.position.x, node.position.y, node.position.z)
           linePositions.push(other.position.x, other.position.y, other.position.z)
 
-          const col1 = new THREE.Color(0x00d9ff)
-          const col2 = new THREE.Color(0x06d6d0)
+          const col1 = new THREE.Color(0x8be9ff)
+          const col2 = new THREE.Color(0x7dd3fc)
           lineColors.push(col1.r, col1.g, col1.b)
           lineColors.push(col2.r, col2.g, col2.b)
         }
@@ -127,7 +127,7 @@ export function TerminalNeuralNetwork() {
     const lineMaterial = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.95,
     })
 
     const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial)
@@ -139,9 +139,9 @@ export function TerminalNeuralNetwork() {
     // Data packets
     const packets: DataPacket[] = []
     const packetColors = [
-      new THREE.Color(0x00d9ff),
-      new THREE.Color(0x06d6d0),
-      new THREE.Color(0x00ffff),
+      new THREE.Color(0xe0fbff),
+      new THREE.Color(0x8be9ff),
+      new THREE.Color(0x7dd3fc),
     ]
 
     for (let i = 0; i < 9; i++) {
@@ -161,15 +161,15 @@ export function TerminalNeuralNetwork() {
     }
 
     // Lighting
-    const light1 = new THREE.PointLight(0x00d9ff, 2, 400)
+    const light1 = new THREE.PointLight(0x8be9ff, 2.4, 420)
     light1.position.set(60, 60, 60)
     scene.add(light1)
 
-    const light2 = new THREE.PointLight(0x06d6d0, 1.8, 350)
+    const light2 = new THREE.PointLight(0x7dd3fc, 2.1, 360)
     light2.position.set(-60, -60, 40)
     scene.add(light2)
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85)
     scene.add(ambientLight)
 
     // Animation
@@ -249,30 +249,28 @@ export function TerminalNeuralNetwork() {
         const pos = new THREE.Vector3().lerpVectors(start, end, packet.progress)
 
         // Core packet
-        const mat = new THREE.MeshPhongMaterial({
+        const mat = new THREE.MeshBasicMaterial({
           color: packet.color,
-          emissive: packet.color,
-          emissiveIntensity: 1,
           transparent: true,
-          opacity: 0.9,
+          opacity: 1,
         })
         const mesh = new THREE.Mesh(packetGeometry, mat)
         mesh.position.copy(pos)
-        mesh.scale.set(1.1, 1.1, 1.1)
+        mesh.scale.set(1.15, 1.15, 1.15)
         mesh.userData.isPacket = true
         scene.add(mesh)
 
         // Glow halo
-        const haloMat = new THREE.MeshPhongMaterial({
+        const haloMat = new THREE.MeshBasicMaterial({
           color: packet.color,
-          emissive: packet.color,
-          emissiveIntensity: 0.4,
           transparent: true,
-          opacity: 0.25,
+          opacity: 0.32,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
         })
         const haloMesh = new THREE.Mesh(packetGeometry, haloMat)
         haloMesh.position.copy(pos)
-        haloMesh.scale.set(1.8, 1.8, 1.8)
+        haloMesh.scale.set(2.1, 2.1, 2.1)
         haloMesh.userData.isPacket = true
         scene.add(haloMesh)
       })

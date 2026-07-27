@@ -1,7 +1,11 @@
 "use client"
 
-import { ExternalLink, Github, Star } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
+import Autoplay from "embla-carousel-autoplay"
+import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react"
 import { ScrollReveal } from "./scroll-reveal"
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "./ui/carousel"
 
 type Project = {
   title: string
@@ -9,12 +13,42 @@ type Project = {
   tags: string[]
   highlights: string
   link: string
-  gradient: string
   featured?: boolean
+  image?: string
 }
 
 export function Projects() {
   const projects: Project[] = [
+    {
+      title: "Docorio",
+      description:
+        "Full-stack document platform trusted by 100+ users, offering 40+ tools (PDF merge, split, compress, convert, OCR, eSign, AI document chat) with sub-1s processing speeds. Core tools run entirely client-side so files never leave the user's device, while AI-powered tools stream through server pipelines deployed on AWS with S3 for object storage and Docker-based processing workers.",
+      tags: ["Next.js", "TypeScript", "Node.js", "Python", "AWS S3", "Docker"],
+      highlights: "100+ Users - Document Platform",
+      link: "https://docorio.app",
+      image: "/projects/docorio.png",
+      featured: true,
+    },
+    {
+      title: "Alpha UI",
+      description:
+        "Production-ready component library with 80+ components, adopted by 500+ engineering teams. Includes 200+ interactive Storybook stories with copy-ready code and full prop documentation for fast onboarding.",
+      tags: ["React.js", "TypeScript", "Tailwind CSS", "Storybook"],
+      highlights: "500+ Teams - Component Library",
+      link: "https://alphaui.dev",
+      image: "/projects/alpha-ui.png",
+      featured: true,
+    },
+    {
+      title: "Comment Kro",
+      description:
+        "Instagram automation platform that auto-replies to comments, DMs, and story interactions with AI-powered, keyword-triggered messaging — converting engagement into leads in under a second, 24/7. Meta API compliant and Meta Verified, with Digio, HyperVerge, and PennyDrop integrated for identity and bank-account verification, used by creators and businesses across 20+ countries.",
+      tags: ["Instagram API", "AI Automation", "Meta API",'WebHooks'],
+      highlights: "20+ Countries - Instagram Automation SaaS",
+      link: "https://www.commentkro.in/",
+      image: "/projects/comment-kro.png",
+      featured: true,
+    },
     {
       title: "Heart Sync",
       description:
@@ -22,64 +56,6 @@ export function Projects() {
       tags: ["TypeScript", "React", "Node.js", "WebSocket"],
       highlights: "Secure Chat Platform",
       link: "https://github.com/ayushspn123/heart-sync-client",
-      gradient: "from-red-500 to-pink-400",
-      featured: true,
-    },
-    {
-      title: "Socket Chat App",
-      description:
-        "Scalable real-time messaging application using Socket.io. Supports multiple rooms, user authentication, and message history with persistent storage.",
-      tags: ["Socket.io", "React", "Node.js", "MongoDB"],
-      highlights: "Real-time Chat",
-      link: "https://github.com/ayushspn123/socket",
-      gradient: "from-blue-500 to-cyan-400",
-      featured: true,
-    },
-    {
-      title: "Question Builder",
-      description:
-        "Interactive quiz creation and management platform. Allows users to build custom quizzes with various question types and track student performance.",
-      tags: ["HTML", "JavaScript", "CSS"],
-      highlights: "Quiz Platform",
-      link: "https://github.com/ayushspn123/question-Builder",
-      gradient: "from-purple-500 to-pink-400",
-    },
-    {
-      title: "Game Nest",
-      description:
-        "Gaming platform featuring multiple mini-games with leaderboards and user profiles. Built with modern web technologies for smooth gameplay.",
-      tags: ["React", "JavaScript", "Firebase"],
-      highlights: "Gaming Platform",
-      link: "https://github.com/ayushspn123/game-Nest",
-      gradient: "from-yellow-500 to-orange-400",
-      featured: true,
-    },
-    {
-      title: "Cooller",
-      description:
-        "Temperature monitoring and analysis application. Provides real-time weather data, historical trends, and weather alerts with beautiful visualizations.",
-      tags: ["TypeScript", "React", "API Integration"],
-      highlights: "Weather App",
-      link: "https://github.com/ayushspn123/cooller",
-      gradient: "from-cyan-500 to-blue-400",
-    },
-    {
-      title: "Weather Summary",
-      description:
-        "Comprehensive weather tracking application with real-time forecasts, historical data analysis, and location-based weather alerts for multiple cities.",
-      tags: ["JavaScript", "Weather API", "React"],
-      highlights: "Weather Tracking",
-      link: "#",
-      gradient: "from-sky-500 to-cyan-400",
-    },
-    {
-      title: "Speed Booster Extension",
-      description:
-        "Chrome extension that optimizes browser performance and speeds up web page loading. Includes caching optimization and resource minification.",
-      tags: ["HTML", "JavaScript", "Chrome API"],
-      highlights: "Browser Extension",
-      link: "https://github.com/ayushspn123/speed_booster-extensions",
-      gradient: "from-green-500 to-emerald-400",
     },
     {
       title: "Fake News Detector",
@@ -88,8 +64,54 @@ export function Projects() {
       tags: ["Next.js", "TypeScript", "Machine Learning", "Flask"],
       highlights: "89% Accuracy - ML Model",
       link: "#",
-      gradient: "from-yellow-500 to-orange-400",
-      featured: true,
+    },
+    {
+      title: "Socket Chat App",
+      description:
+        "Scalable real-time messaging application using Socket.io. Supports multiple rooms, user authentication, and message history with persistent storage.",
+      tags: ["Socket.io", "React", "Node.js", "MongoDB"],
+      highlights: "Real-time Chat",
+      link: "https://github.com/ayushspn123/socket",
+    },
+    {
+      title: "Question Builder",
+      description:
+        "Interactive quiz creation and management platform. Allows users to build custom quizzes with various question types and track student performance.",
+      tags: ["HTML", "JavaScript", "CSS"],
+      highlights: "Quiz Platform",
+      link: "https://github.com/ayushspn123/question-Builder",
+    },
+    {
+      title: "Game Nest",
+      description:
+        "Gaming platform featuring multiple mini-games with leaderboards and user profiles. Built with modern web technologies for smooth gameplay.",
+      tags: ["React", "JavaScript", "Firebase"],
+      highlights: "Gaming Platform",
+      link: "https://github.com/ayushspn123/game-Nest",
+    },
+    {
+      title: "Cooller",
+      description:
+        "Temperature monitoring and analysis application. Provides real-time weather data, historical trends, and weather alerts with beautiful visualizations.",
+      tags: ["TypeScript", "React", "API Integration"],
+      highlights: "Weather App",
+      link: "https://github.com/ayushspn123/cooller",
+    },
+    {
+      title: "Weather Summary",
+      description:
+        "Comprehensive weather tracking application with real-time forecasts, historical data analysis, and location-based weather alerts for multiple cities.",
+      tags: ["JavaScript", "Weather API", "React"],
+      highlights: "Weather Tracking",
+      link: "#",
+    },
+    {
+      title: "Speed Booster Extension",
+      description:
+        "Chrome extension that optimizes browser performance and speeds up web page loading. Includes caching optimization and resource minification.",
+      tags: ["HTML", "JavaScript", "Chrome API"],
+      highlights: "Browser Extension",
+      link: "https://github.com/ayushspn123/speed_booster-extensions",
     },
     {
       title: "APNA MARKET",
@@ -98,184 +120,230 @@ export function Projects() {
       tags: ["React.js", "Node.js", "MongoDB", "Express", "Material UI"],
       highlights: "2nd Prize - Hackathon Winner",
       link: "#",
-      gradient: "from-green-500 to-emerald-400",
       featured: true,
     },
   ]
 
   const featuredProjects = projects.filter((p) => p.featured)
-  const projectStats = [
-    { label: "Featured Builds", value: `${featuredProjects.length}+` },
-    { label: "Total Projects", value: `${projects.length}+` },
-    { label: "Core Stack", value: "MERN + Next" },
-  ]
+  const restProjects = projects.filter((p) => !p.featured)
+
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const autoplay = useRef(
+    Autoplay({ delay: 4500, stopOnInteraction: false, stopOnMouseEnter: true }),
+  )
+
+  useEffect(() => {
+    if (!api) return
+    setCurrent(api.selectedScrollSnap())
+    api.on("select", () => setCurrent(api.selectedScrollSnap()))
+  }, [api])
+
+  const goPrev = () => {
+    api?.scrollPrev()
+    autoplay.current.reset()
+  }
+
+  const goNext = () => {
+    api?.scrollNext()
+    autoplay.current.reset()
+  }
 
   return (
-    <section id="projects" className="section-shell bg-gradient-to-b from-card/30 to-background">
-      <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.18]" aria-hidden />
-      <div className="max-w-7xl mx-auto">
-        <ScrollReveal className="text-center mb-16">
-          <div className="editorial-kicker mb-4">Selected Work</div>
+    <section id="projects" className="section-shell">
+      <div className="section-container max-w-7xl">
+        <ScrollReveal>
+          <p className="kicker">[ 03 — Selected Work ]</p>
           <h2 className="section-title">Featured Projects</h2>
-          <p className="section-subtitle mb-0">
-            Showcase of impactful projects built with modern technologies, scalability, and best practices
+          <p className="section-subtitle">
+            {featuredProjects.length} featured builds, {projects.length} shipped in total — MERN + Next core stack.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-            {projectStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-card border border-border/85 rounded-full px-4 py-2 text-xs sm:text-sm text-foreground/80"
+        </ScrollReveal>
+
+        {/* Featured Projects Carousel */}
+        <ScrollReveal delayMs={60}>
+          <Carousel
+            setApi={setApi}
+            opts={{ loop: true }}
+            plugins={[autoplay.current]}
+            className="mt-12 mb-6"
+          >
+            <CarouselContent className="-ml-0">
+              {featuredProjects.map((project, idx) => (
+                <CarouselItem key={project.title} className="pl-0">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="doc-card group relative block aspect-[16/10] sm:aspect-[21/9] overflow-hidden"
+                  >
+                    {project.image ? (
+                      <>
+                        <Image
+                          src={project.image}
+                          alt={`${project.title} screenshot`}
+                          fill
+                          priority={idx === 0}
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                          sizes="100vw"
+                        />
+
+                        {/* Base label, visible by default */}
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent p-6 pt-20 transition-opacity duration-300 group-hover:opacity-0">
+                          <span className="font-mono text-[11px] uppercase tracking-widest text-white/70">
+                            Featured / {String(idx + 1).padStart(2, "0")}
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-semibold text-white mt-1">{project.title}</h3>
+                        </div>
+
+                        {/* Hover detail panel */}
+                        <div className="absolute inset-0 flex flex-col justify-end bg-black/88 p-6 sm:p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="font-mono text-[11px] uppercase tracking-widest text-primary">
+                            Featured / {String(idx + 1).padStart(2, "0")}
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-semibold text-white mt-1 mb-3">{project.title}</h3>
+                          <p className="text-white/75 text-sm sm:text-base leading-relaxed max-w-2xl mb-4 line-clamp-3">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-5">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="font-mono text-[11px] uppercase tracking-[0.08em] px-2 py-1 border border-white/25 text-white/85"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex items-center justify-between border-t border-white/20 pt-4">
+                            <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
+                            <span className="font-mono text-xs uppercase tracking-widest text-primary inline-flex items-center gap-1.5">
+                              Explore
+                              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 paper-grain">
+                        <div className="flex items-start justify-between">
+                          <span className="font-mono text-[11px] uppercase tracking-widest text-primary">
+                            Featured / {String(idx + 1).padStart(2, "0")}
+                          </span>
+                          <span className="index-num text-6xl sm:text-7xl font-semibold leading-none">
+                            {String(idx + 1).padStart(2, "0")}
+                          </span>
+                        </div>
+                        <div>
+                          <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-2">{project.title}</h3>
+                          <p className="text-foreground/65 text-sm sm:text-base leading-relaxed max-w-2xl mb-4 line-clamp-2">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-5">
+                            {project.tags.map((tag) => (
+                              <span key={tag} className="doc-tag">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex items-center justify-between border-t border-border pt-4">
+                            <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
+                            <span className="font-mono text-xs uppercase tracking-widest text-primary inline-flex items-center gap-1.5">
+                              Explore
+                              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </a>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          {/* Progress hairline */}
+          <div className="h-px bg-border relative">
+            <div
+              className="h-px bg-primary absolute left-0 top-0 transition-all duration-300"
+              style={{ width: `${((current + 1) / featuredProjects.length) * 100}%` }}
+            />
+          </div>
+
+          {/* Custom controls */}
+          <div className="flex items-center justify-between mt-5 mb-16">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={goPrev}
+                aria-label="Previous project"
+                className="p-2.5 border border-border hover:border-primary hover:text-primary transition-colors"
               >
-                <span className="font-semibold text-foreground">{stat.value}</span>
-                <span className="mx-1.5 text-foreground/40">|</span>
-                <span>{stat.label}</span>
-              </div>
-            ))}
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={goNext}
+                aria-label="Next project"
+                className="p-2.5 border border-border hover:border-primary hover:text-primary transition-colors"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <span className="font-mono text-xs text-muted-foreground">
+              {String(current + 1).padStart(2, "0")} / {String(featuredProjects.length).padStart(2, "0")}
+            </span>
           </div>
         </ScrollReveal>
 
-        {/* Featured Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {featuredProjects.map((project, idx) => {
-            return (
-            <ScrollReveal key={idx} delayMs={100 * idx} className={idx === 0 ? "md:col-span-2 lg:col-span-2" : ""}>
+        {/* Index of remaining projects */}
+        <ScrollReveal>
+          <p className="kicker mb-2">[ Index ]</p>
+          <h3 className="text-2xl font-semibold text-foreground mb-6">More Builds</h3>
+        </ScrollReveal>
+
+        <div className="border-t border-border">
+          {restProjects.map((project, idx) => (
+            <ScrollReveal key={project.title} delayMs={40 * idx}>
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group modern-card p-5 sm:p-6 transition-colors duration-300 hover:border-accent/60 h-full flex flex-col"
+                className="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 py-5 border-b border-border hover:bg-card transition-colors px-2 -mx-2"
               >
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/12 to-secondary/8 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="flex items-start justify-between mb-4 relative z-10">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${project.gradient}`}>
-                        <Star className="w-4 h-4 text-white" />
-                      </div>
-                      <span className="text-xs font-bold text-primary uppercase tracking-wider">Featured</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                <span className="index-num text-2xl font-semibold w-10 shrink-0">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                       {project.title}
-                    </h3>
+                    </h4>
+                    <Github className="w-3.5 h-3.5 text-foreground/35 shrink-0" />
                   </div>
+                  <p className="text-xs text-foreground/55 truncate mt-0.5">{project.description}</p>
                 </div>
-
-                <p className={`text-foreground/70 mb-4 leading-relaxed relative z-10 flex-grow ${idx === 0 ? "text-sm sm:text-base" : "text-sm"}`}>
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6 relative z-10">
-                  {project.tags.map((tag, tidx) => (
-                    <span
-                      key={tidx}
-                      className="px-2.5 py-1 bg-primary/13 text-primary text-xs rounded-lg border border-primary/26 font-medium hover:bg-primary/22 transition-colors"
-                    >
+                <div className="flex items-center gap-2 shrink-0">
+                  {project.tags.slice(0, 2).map((tag) => (
+                    <span key={tag} className="doc-tag text-[10px] hidden sm:inline-flex">
                       {tag}
                     </span>
                   ))}
-                </div>
-
-                <div className="flex items-center justify-between relative z-10 border-t border-border/60 pt-4">
-                  <span className="text-sm font-semibold text-secondary">{project.highlights}</span>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                    Explore
-                    <ExternalLink className="w-4.5 h-4.5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-primary transition-colors" />
                 </div>
               </a>
             </ScrollReveal>
-            )
-          })}
+          ))}
         </div>
 
-        {/* All Projects */}
-        <div className="mb-8 relative">
-          <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
-            <div className="absolute left-[8%] right-[8%] top-12 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-            <div className="absolute left-[18%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-accent/12 to-transparent" />
-            <div className="absolute left-[50%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-secondary/12 to-transparent" />
-            <div className="absolute left-[82%] top-12 bottom-16 w-px bg-gradient-to-b from-transparent via-primary/12 to-transparent" />
-            <div className="absolute left-[18%] top-[24%] h-px w-[32%] bg-gradient-to-r from-primary/10 via-accent/20 to-transparent" />
-            <div className="absolute left-[50%] top-[45%] h-px w-[32%] bg-gradient-to-r from-secondary/10 via-primary/20 to-transparent" />
-            <div className="absolute left-[18%] top-[68%] h-px w-[64%] bg-gradient-to-r from-primary/10 via-secondary/15 to-transparent" />
-          </div>
-
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-foreground">All Projects</h3>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project, idx) => {
-              return (
-              <ScrollReveal key={project.title} delayMs={50 * idx}>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group signature-shell relative flex h-full flex-col overflow-hidden p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/45"
-                >
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(34,211,238,0.10),transparent_34%),radial-gradient(circle_at_85%_10%,rgba(37,99,235,0.10),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.03),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                  <div className="relative z-10 flex items-start gap-3 mb-4">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-background/70 shadow-lg shadow-primary/10">
-                      <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-cyan-300 to-primary shadow-[0_0_14px_rgba(34,211,238,0.7)]" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="mb-1 flex items-center gap-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/65">
-                          Node {String(idx + 1).padStart(2, "0")}
-                        </span>
-                        <span className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
-                      </div>
-                      <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
-                        {project.title}
-                      </h4>
-                    </div>
-                    <Github className="w-4 h-4 text-primary flex-shrink-0 mt-1.5" />
-                  </div>
-
-                  <p className="relative z-10 text-foreground/65 text-xs sm:text-sm mb-4 line-clamp-3 leading-relaxed flex-1">
-                    {project.description}
-                  </p>
-
-                  <div className="relative z-10 flex flex-wrap gap-1.5">
-                    {project.tags.slice(0, 2).map((tag, tidx) => (
-                      <span
-                        key={tidx}
-                        className="rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {project.tags.length > 2 && (
-                      <span className="px-2.5 py-1 text-xs text-foreground/50">+{project.tags.length - 2}</span>
-                    )}
-                  </div>
-
-                  <div className="relative z-10 mt-5 flex items-center gap-3 border-t border-border/70 pt-4">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-secondary">
-                      <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_12px_rgba(45,212,191,0.6)]" />
-                      Connected
-                    </span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-primary/20 via-secondary/20 to-transparent" />
-                    <span className="text-xs font-semibold text-primary/80">Open Link</span>
-                  </div>
-                </a>
-              </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* View All on GitHub CTA */}
-        <ScrollReveal className="text-center mt-12" delayMs={140}>
+        <ScrollReveal className="mt-12" delayMs={140}>
           <a
             href="https://github.com/ayushspn123?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-foreground bg-foreground text-background font-mono text-xs uppercase tracking-widest hover:bg-primary hover:border-primary transition-colors"
           >
-            <Github className="w-5 h-5" />
+            <Github className="w-4 h-4" />
             View All on GitHub
-            <ExternalLink className="w-4 h-4" />
           </a>
         </ScrollReveal>
       </div>

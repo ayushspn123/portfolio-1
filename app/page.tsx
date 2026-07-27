@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { Experience } from "@/components/experience"
@@ -32,14 +31,14 @@ export const metadata: Metadata = {
       "Explore projects, research, skills, and achievements by Ayush Kumar, a full-stack developer focused on scalable and user-first web products.",
     url: siteUrl,
     type: "website",
-    images: ["/placeholder.jpg"],
+    images: ["/ayush-kumar.jpg"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ayush Kumar | Full-Stack Developer Portfolio",
     description:
       "Portfolio showcasing Ayush Kumar's full-stack projects, research, and engineering experience.",
-    images: ["/placeholder.jpg"],
+    images: ["/ayush-kumar.jpg"],
   },
 }
 
@@ -52,9 +51,10 @@ export default function Home() {
     jobTitle: "Full-Stack Developer",
     description:
       "Full-stack developer focused on scalable web applications, clean architecture, and impactful product experiences.",
-    image: `${siteUrl}/placeholder-user.jpg`,
+    image: `${siteUrl}/ayush-kumar.jpg`,
     sameAs: [
       "https://github.com/ayushspn123",
+      "https://www.linkedin.com/in/ayushkumar-dev/",
     ],
   }
 
@@ -89,37 +89,43 @@ export default function Home() {
         "@type": "SiteNavigationElement",
         position: 1,
         name: "About",
-        url: `${siteUrl}/about`,
+        url: `${siteUrl}/#about`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 2,
         name: "Experience",
-        url: `${siteUrl}/experience`,
+        url: `${siteUrl}/#experience`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 3,
         name: "Projects",
-        url: `${siteUrl}/projects`,
+        url: `${siteUrl}/#projects`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 4,
         name: "Research",
-        url: `${siteUrl}/research`,
+        url: `${siteUrl}/#research`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 5,
         name: "Skills",
-        url: `${siteUrl}/skills`,
+        url: `${siteUrl}/#skills`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 6,
-        name: "Hire Me",
-        url: `${siteUrl}/hire-me`,
+        name: "Achievements",
+        url: `${siteUrl}/#achievements`,
+      },
+      {
+        "@type": "SiteNavigationElement",
+        position: 7,
+        name: "Contact",
+        url: `${siteUrl}/#contact`,
       },
     ],
   }
@@ -145,22 +151,25 @@ export default function Home() {
       <nav aria-label="Sitelink navigation" className="sr-only">
         <ul>
           <li>
-            <Link href="/about">About</Link>
+            <a href="#about">About</a>
           </li>
           <li>
-            <Link href="/experience">Experience</Link>
+            <a href="#experience">Experience</a>
           </li>
           <li>
-            <Link href="/projects">Projects</Link>
+            <a href="#projects">Projects</a>
           </li>
           <li>
-            <Link href="/research">Research</Link>
+            <a href="#research">Research</a>
           </li>
           <li>
-            <Link href="/skills">Skills</Link>
+            <a href="#skills">Skills</a>
           </li>
           <li>
-            <Link href="/hire-me">Hire Me</Link>
+            <a href="#achievements">Achievements</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
           </li>
         </ul>
       </nav>

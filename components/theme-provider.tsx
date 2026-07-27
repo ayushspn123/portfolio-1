@@ -38,7 +38,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       {children}
       <button
         onClick={toggleTheme}
-        className="fixed bottom-8 right-8 p-3 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 shadow-lg hover:scale-110 z-50"
+        className="fixed bottom-8 right-8 p-3 border border-foreground bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors z-50"
         aria-label="Toggle theme"
       >
         {isDark ? (

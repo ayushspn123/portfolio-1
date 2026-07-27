@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Portfolio of Ayush Kumar, full-stack developer focused on scalable apps and product engineering.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b1220",
-    theme_color: "#0b1220",
+    background_color: "#111113",
+    theme_color: "#111113",
     icons: [
       {
         src: "/placeholder-logo.png",

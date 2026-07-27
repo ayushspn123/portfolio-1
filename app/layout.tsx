@@ -1,10 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Sora, Space_Grotesk } from "next/font/google"
+import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import NeuralNetworkThree from "@/components/neural-network-three"
 
 const siteName = "Ayush Kumar Portfolio"
 const siteDescription =
@@ -13,16 +12,24 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
 const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
 
-const sora = Sora({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
 })
 
-const spaceGrotesk = Space_Grotesk({
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-face",
+  weight: ["400", "500", "600"],
 })
 
 export const metadata: Metadata = {
@@ -104,8 +111,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sora.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
-        <NeuralNetworkThree />
+      <body className={`${fraunces.variable} ${plexSans.variable} ${plexMono.variable} font-sans antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>

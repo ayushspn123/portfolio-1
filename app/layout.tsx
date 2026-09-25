@@ -4,10 +4,11 @@ import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TabVisibility } from "@/components/tab-visibility"
 
-const siteName = "Ayush Kumar Portfolio"
+const siteName = "Ayush Kumar | Software Developer & Full-Stack Engineer"
 const siteDescription =
-  "Portfolio of Ayush Kumar, a full-stack developer building scalable web apps, research projects, and production-ready digital products."
+  "Official portfolio of Ayush Kumar, a Full-Stack Software Developer & Engineer specializing in React, Next.js, Node.js, MERN stack, microservices, and scalable web apps."
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
 const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
@@ -35,44 +36,60 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ayush Kumar | Full-Stack Developer Portfolio",
-    template: "%s | Ayush Kumar",
+    default: "Ayush Kumar | Software Developer & Full-Stack Engineer",
+    template: "%s | Ayush Kumar - Software Developer",
   },
   description: siteDescription,
   applicationName: siteName,
   keywords: [
     "Ayush Kumar",
+    "Ayush Kumar developer",
+    "Ayush Kumar software developer",
+    "Ayush Kumar software engineer",
     "Ayush Kumar portfolio",
-    "full-stack developer",
-    "MERN developer",
-    "web developer portfolio",
+    "Ayush Kumar full stack developer",
+    "developer",
+    "software developer",
+    "full stack developer",
     "software engineer",
-    "projects",
+    "full stack software developer",
+    "web developer",
+    "MERN stack developer",
+    "React developer",
+    "Next.js developer",
+    "Node.js developer",
+    "ayushspn123",
+    "ayushkumar-dev",
+    "developer portfolio",
+    "software engineer portfolio",
   ],
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   authors: [{ name: "Ayush Kumar", url: siteUrl }],
   creator: "Ayush Kumar",
   publisher: "Ayush Kumar",
   icons: {
-    icon: "/placeholder-logo.png",
-    shortcut: "/placeholder-logo.png",
-    apple: "/placeholder-logo.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/ayush-kumar.jpg", type: "image/jpeg" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/ayush-kumar.jpg",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName,
-    title: "Ayush Kumar | Full-Stack Developer Portfolio",
+    siteName: "Ayush Kumar - Software Developer Portfolio",
+    title: "Ayush Kumar | Software Developer & Full-Stack Engineer",
     description: siteDescription,
     images: [
       {
-        url: "/placeholder.jpg",
+        url: "/ayush-kumar.jpg",
         width: 1200,
         height: 630,
-        alt: "Ayush Kumar portfolio preview",
+        alt: "Ayush Kumar — Software Developer & Full-Stack Engineer Portfolio",
       },
     ],
   },
@@ -80,9 +97,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ayushspn123",
     creator: "@ayushspn123",
-    title: "Ayush Kumar | Full-Stack Developer Portfolio",
+    title: "Ayush Kumar | Software Developer & Full-Stack Engineer",
     description: siteDescription,
-    images: ["/placeholder.jpg"],
+    images: ["/ayush-kumar.jpg"],
   },
   robots: {
     index: true,
@@ -112,9 +129,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fraunces.variable} ${plexSans.variable} ${plexMono.variable} font-sans antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TabVisibility />
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
   )
 }
+

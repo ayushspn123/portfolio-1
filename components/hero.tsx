@@ -5,9 +5,9 @@ import { useTypewriter } from "./typewriter"
 import { ArrowRight, Mail, Linkedin, Github } from "lucide-react"
 
 export function Hero() {
-  const line1 = "Full-Stack Developer and AI Researcher"
-  const line2 = "I build production-ready apps and actively explore applied AI research with practical implementation focus."
-  const line3 = "Currently at Xcelore Pvt Ltd (2.5+ years), working across MERN stack and real-world product delivery."
+  const line1 = "Software Developer & Full-Stack Engineer"
+  const line2 = "I build production-ready software applications, scalable web platforms, and explore applied AI research."
+  const line3 = "Software Developer at Xcelore Pvt Ltd (2.5+ years), engineering MERN stack & cloud solutions."
 
   const { displayedText: text1, isComplete: done1 } = useTypewriter(line1, 30, 600)
 
@@ -26,7 +26,7 @@ export function Hero() {
         <div className="grid md:grid-cols-5 gap-10 lg:gap-16 items-start">
           {/* Left Content */}
           <div className="md:col-span-3">
-            <p className="kicker mb-6">[ Available for impactful product teams ]</p>
+            <p className="kicker mb-6">[ Software Developer &amp; Full-Stack Engineer ]</p>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl leading-[1.02] text-balance mb-6">
               <span className="font-medium">Hi, I'm</span>
@@ -74,7 +74,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground/50 hover:text-primary transition-colors"
-                aria-label="LinkedIn"
+                aria-label="Ayush Kumar LinkedIn Profile"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -83,14 +83,14 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground/50 hover:text-primary transition-colors"
-                aria-label="GitHub"
+                aria-label="Ayush Kumar GitHub Profile"
               >
                 <Github className="w-5 h-5" />
               </a>
               <a
                 href="mailto:ayushvermaspn@gmail.com"
                 className="text-foreground/50 hover:text-primary transition-colors"
-                aria-label="Email"
+                aria-label="Email Ayush Kumar Developer"
               >
                 <Mail className="w-5 h-5" />
               </a>
@@ -114,7 +114,7 @@ export function Hero() {
               <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                 <Image
                   src="/ayush-kumar.jpg"
-                  alt="Ayush Kumar — Full-Stack Developer and AI Researcher"
+                  alt="Ayush Kumar — Software Developer & Full-Stack Engineer"
                   fill
                   priority
                   className="object-cover object-top"
@@ -131,24 +131,23 @@ export function Hero() {
                     File / 01
                   </span>
                   <span className="font-mono text-[11px] uppercase tracking-widest text-white/90 bg-black/20 backdrop-blur-md border border-white/15 px-2 py-1">
-                    Profile
+                    Software Developer
                   </span>
                 </div>
               </div>
 
               <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">Ayush Kumar</h3>
+                <h2 className="text-2xl font-semibold mb-2">Ayush Kumar</h2>
                 <p className="text-sm text-foreground/65 leading-relaxed mb-5">
-                  Building scalable, production-grade web and mobile experiences, with an applied AI research track on
-                  the side.
+                  Software developer building scalable, production-grade web applications with React, Next.js, and Node.js.
                 </p>
 
                 <dl className="space-y-0 border-t border-border">
                   {[
-                    { k: "Role", v: "Full-Stack Developer" },
-                    { k: "Focus", v: "MERN + Applied AI" },
+                    { k: "Role", v: "Software Developer" },
+                    { k: "Focus", v: "MERN Stack + Applied AI" },
                     { k: "Location", v: "Noida, India" },
-                    { k: "Status", v: "Open to collaborate" },
+                    { k: "Status", v: "Open for Software Engineer roles" },
                     { k: "Email", v: "ayushvermaspn@gmail.com" },
                   ].map((row) => (
                     <div key={row.k} className="flex items-baseline justify-between gap-4 py-2.5 border-b border-border">
@@ -167,3 +166,4 @@ export function Hero() {
     </section>
   )
 }
+

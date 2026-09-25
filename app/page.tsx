@@ -12,32 +12,49 @@ import { Footer } from "@/components/footer"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
 
 export const metadata: Metadata = {
-  title: "Full-Stack Developer Portfolio",
+  title: "Ayush Kumar | Software Developer & Full-Stack Engineer",
   description:
-    "Ayush Kumar's full-stack developer portfolio featuring production-ready projects, research work, technical skills, achievements, and contact details.",
+    "Official portfolio of Ayush Kumar — Full-Stack Software Developer & Software Engineer with 2.5+ years experience building production apps, React/Next.js platforms, Node.js APIs, and applied AI projects.",
   keywords: [
     "Ayush Kumar",
     "Ayush Kumar developer",
-    "full-stack developer portfolio",
+    "Ayush Kumar software developer",
+    "Ayush Kumar software engineer",
+    "Ayush Kumar portfolio",
+    "developer",
+    "software developer",
+    "full stack developer",
+    "software engineer",
+    "full stack software engineer",
+    "web developer",
     "MERN stack developer",
-    "software engineer portfolio",
+    "React developer",
+    "Next.js developer",
+    "ayushspn123",
   ],
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
-    title: "Ayush Kumar | Full-Stack Developer Portfolio",
+    title: "Ayush Kumar | Software Developer & Full-Stack Engineer",
     description:
-      "Explore projects, research, skills, and achievements by Ayush Kumar, a full-stack developer focused on scalable and user-first web products.",
+      "Explore projects, research, technical skills, and experience of Ayush Kumar — Full-Stack Software Developer specializing in scalable web & mobile apps.",
     url: siteUrl,
     type: "website",
-    images: ["/ayush-kumar.jpg"],
+    images: [
+      {
+        url: "/ayush-kumar.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ayush Kumar — Full-Stack Software Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Kumar | Full-Stack Developer Portfolio",
+    title: "Ayush Kumar | Software Developer & Full-Stack Engineer",
     description:
-      "Portfolio showcasing Ayush Kumar's full-stack projects, research, and engineering experience.",
+      "Portfolio showcasing Ayush Kumar's full-stack software development, MERN projects, and applied AI research.",
     images: ["/ayush-kumar.jpg"],
   },
 }
@@ -47,21 +64,53 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Ayush Kumar",
+    alternateName: [
+      "Ayush Kumar Developer",
+      "Ayush Kumar Software Developer",
+      "Ayush Kumar Software Engineer",
+      "Ayush Kumar Full Stack Developer",
+      "ayushspn123",
+    ],
     url: siteUrl,
-    jobTitle: "Full-Stack Developer",
+    jobTitle: "Full-Stack Software Developer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Xcelore Pvt Ltd",
+    },
     description:
-      "Full-stack developer focused on scalable web applications, clean architecture, and impactful product experiences.",
+      "Ayush Kumar is a Full-Stack Software Developer specializing in building scalable web applications, microservices, Next.js/React platforms, and applied AI solutions.",
     image: `${siteUrl}/ayush-kumar.jpg`,
     sameAs: [
       "https://github.com/ayushspn123",
       "https://www.linkedin.com/in/ayushkumar-dev/",
+    ],
+    knowsAbout: [
+      "Software Development",
+      "Full-Stack Web Development",
+      "JavaScript",
+      "TypeScript",
+      "React.js",
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "Python",
+      "MERN Stack",
+      "MongoDB",
+      "Docker",
+      "REST APIs",
+      "Microservices",
     ],
   }
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Ayush Kumar Portfolio",
+    name: "Ayush Kumar - Software Developer Portfolio",
+    alternateName: [
+      "Ayush Kumar Portfolio",
+      "Ayush Kumar Developer Website",
+      "Ayush Kumar Software Engineer",
+    ],
     url: siteUrl,
     potentialAction: {
       "@type": "SearchAction",
@@ -70,61 +119,119 @@ export default function Home() {
     },
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "About Ayush Kumar",
+        item: `${siteUrl}/#about`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Software Developer Experience",
+        item: `${siteUrl}/#experience`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Featured Projects",
+        item: `${siteUrl}/#projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "AI Research",
+        item: `${siteUrl}/#research`,
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        name: "Skills & Toolbox",
+        item: `${siteUrl}/#skills`,
+      },
+      {
+        "@type": "ListItem",
+        position: 6,
+        name: "Achievements",
+        item: `${siteUrl}/#achievements`,
+      },
+      {
+        "@type": "ListItem",
+        position: 7,
+        name: "Contact Developer",
+        item: `${siteUrl}/#contact`,
+      },
+    ],
+  }
+
   const profilePageJsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    name: "Ayush Kumar | Full-Stack Developer Portfolio",
+    name: "Ayush Kumar | Software Developer & Full-Stack Engineer Portfolio",
     url: siteUrl,
     mainEntity: {
       "@type": "Person",
       name: "Ayush Kumar",
+      jobTitle: "Software Developer",
     },
   }
 
   const siteNavigationJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    name: "Portfolio Sitelinks",
     itemListElement: [
       {
         "@type": "SiteNavigationElement",
         position: 1,
-        name: "About",
+        name: "About Developer",
+        description: "Overview of Ayush Kumar's background as a full-stack developer.",
         url: `${siteUrl}/#about`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 2,
-        name: "Experience",
+        name: "Work Experience",
+        description: "Software developer role at Xcelore Pvt Ltd and key client projects.",
         url: `${siteUrl}/#experience`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 3,
         name: "Projects",
+        description: "Docorio, Alpha UI, Comment Kro, and production applications built by Ayush Kumar.",
         url: `${siteUrl}/#projects`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 4,
-        name: "Research",
+        name: "AI Research",
+        description: "Applied AI research and practical machine learning experiments.",
         url: `${siteUrl}/#research`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 5,
-        name: "Skills",
+        name: "Technical Skills",
+        description: "Full-stack developer tech stack: React, Next.js, Node.js, TypeScript, Python, Docker.",
         url: `${siteUrl}/#skills`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 6,
         name: "Achievements",
+        description: "Hackathon wins, open-source contributions, and engineering milestones.",
         url: `${siteUrl}/#achievements`,
       },
       {
         "@type": "SiteNavigationElement",
         position: 7,
-        name: "Contact",
+        name: "Contact Ayush Kumar",
+        description: "Get in touch for software developer roles, project inquiries, or collaborations.",
         url: `${siteUrl}/#contact`,
       },
     ],
@@ -142,6 +249,10 @@ export default function Home() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
       />
       <script
@@ -151,25 +262,25 @@ export default function Home() {
       <nav aria-label="Sitelink navigation" className="sr-only">
         <ul>
           <li>
-            <a href="#about">About</a>
+            <a href="#about">About Developer</a>
           </li>
           <li>
-            <a href="#experience">Experience</a>
+            <a href="#experience">Software Developer Experience</a>
           </li>
           <li>
-            <a href="#projects">Projects</a>
+            <a href="#projects">Software Projects</a>
           </li>
           <li>
-            <a href="#research">Research</a>
+            <a href="#research">AI Research</a>
           </li>
           <li>
-            <a href="#skills">Skills</a>
+            <a href="#skills">Developer Skills &amp; Stack</a>
           </li>
           <li>
             <a href="#achievements">Achievements</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact">Contact Ayush Kumar</a>
           </li>
         </ul>
       </nav>
@@ -185,3 +296,4 @@ export default function Home() {
     </main>
   )
 }
+

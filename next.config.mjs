@@ -7,5 +7,5 @@ const nextConfig = {
     unoptimized: true,
   },
 }
-
+//jjd
 export default nextConfig

@@ -50,6 +50,16 @@ export function Projects() {
       featured: true,
     },
     {
+      title: "Dakiya",
+      description:
+        "Business email platform for setting up custom-domain mailboxes, managing a shared team inbox, and keeping domain authentication in one place. Includes guided DNS verification, SPF/DKIM/DMARC setup, mailbox management, and straightforward team pricing.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Email Infrastructure"],
+      highlights: "Business Email - Team Inbox Platform",
+      link: "https://dakiya-free-mail-client.vercel.app/",
+      image: "/projects/dakiya.gif",
+      featured: true,
+    },
+    {
       title: "Heart Sync",
       description:
         "Secure real-time chat platform for couples with end-to-end encryption and privacy features. Enables couples to communicate safely with message history, status updates, and relationship insights.",

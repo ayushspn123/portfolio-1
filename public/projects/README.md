@@ -3,6 +3,7 @@ Project Screenshots
 Place your custom project screenshots in this folder.
 
 Expected filenames used by `components/projects.tsx`:
+- dakiya.gif
 - heart-sync.png
 - socket-chat-app.png
 - question-builder.png
